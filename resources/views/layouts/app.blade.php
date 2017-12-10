@@ -12,9 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css.map') }}" rel="stylesheet">
     <link href="{{ asset('css/AdminLTE.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/adminlte.min.css.map') }}" rel="stylesheet">
     <link href="{{ asset('css/skin-blue.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
@@ -66,12 +64,6 @@
                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                                        class="btn btn-default btn-flat">Sign out</a>
                                 </div>
-                                {{--<li>--}}
-                                {{--<a href="{{ route('logout') }}"--}}
-                                {{--onclick="event.preventDefault();--}}
-                                {{--document.getElementById('logout-form').submit();">--}}
-                                {{--Logout--}}
-                                {{--</a>--}}
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">
@@ -101,5 +93,6 @@
 <script src="{{ asset('js/dropdown.js') }}"></script>
 <script src="{{ asset('js/adminlte.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('scripts')
 </body>
 </html>
