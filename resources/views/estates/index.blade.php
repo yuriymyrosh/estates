@@ -53,15 +53,18 @@
                                     <thead>
                                     <tr>
                                         <th>Назва</th>
+                                        <th>Кількість кімнат</th>
+                                        <th>Район</th>
                                         <th>Адреса</th>
                                         <th>Телефон</th>
+                                        <th>Опис</th>
                                         <th width="100px"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @unless($estates->count())
                                     <tr>
-                                        <td colspan="4">
+                                        <td colspan="7">
                                             Квартир не знайдено
                                         </td>
                                     </tr>
@@ -69,8 +72,11 @@
                                     @foreach($estates as $estate)
                                         <tr>
                                             <td><a href="{{ route('estates.show', $estate->id) }}">{{ $estate->name }}</a></td>
+                                            <td>{{ $estate->roomOption->name }}</td>
+                                            <td>{{ $estate->region->name }}</td>
                                             <td>{{ $estate->address }}</td>
                                             <td>{{ $estate->phone }}</td>
+                                            <td>{{ $estate->description }}</td>
                                             <td>
                                                 <a href="{{ route('estates.edit', $estate->id) }}"
                                                    class="btn btn-primary"><i class="icon ion-edit"></i></a>

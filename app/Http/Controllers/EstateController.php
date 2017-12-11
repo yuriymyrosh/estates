@@ -81,6 +81,8 @@ class EstateController extends Controller
     public function store(EstatesFormRequest $request)
     {
         Estate::create($request->all());
+
+        return redirect()->route('estates.index');
     }
 
     /**

@@ -16,9 +16,8 @@ class RoomOptionsTableSeeder extends Seeder
           '2',
           '3',
           '4',
-          '5',
-          '> 5',
-          'приватний будинок',
+          'Комерційна нерухомість',
+          'Приватний будинок',
         ];
 
         foreach ($options as $option) {
