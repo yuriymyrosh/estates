@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Estate\Photo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $phone
  *
  * @property RoomOption $roomOption
+ * @property Photo[] $photos
  * @property Region $region
  */
 class Estate extends Model
@@ -44,5 +46,13 @@ class Estate extends Model
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
     }
 }

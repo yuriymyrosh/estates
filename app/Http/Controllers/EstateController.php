@@ -7,6 +7,7 @@ use App\Models\Estate;
 use App\Models\Region;
 use App\Models\RoomOption;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class EstateController extends Controller
 {
@@ -30,7 +31,7 @@ class EstateController extends Controller
         $rooms = ['' => 'Оберіть кількість кімнат'];
         $rooms = $rooms + RoomOption::all()->pluck('name', 'id')->toArray();
 
-        $estates = Estate::query();
+        $estates = Estate::query()->with('region', 'roomOption');
         if ($region = $request->get('region')) {
             $estates = $estates->where('region_id', $region);
         }
@@ -80,7 +81,18 @@ class EstateController extends Controller
      */
     public function store(EstatesFormRequest $request)
     {
-        Estate::create($request->all());
+        $estate = Estate::create($request->all());
+        if ($photos = $request->file('photos')) {
+            /** @var UploadedFile $photo */
+            foreach ($photos as $photo) {
+                $name = $this->getPhotoName($photo);
+                $path = $photo->storeAs('public/photos', $name);
+                $estate->photos()->create([
+                    'path' => $path,
+                ]);
+            }
+        }
+
 
         return redirect()->route('estates.index');
     }
@@ -134,6 +146,19 @@ class EstateController extends Controller
      */
     public function update(EstatesFormRequest $request, Estate $estate)
     {
+        if ($photos = $request->file('photos')) {
+            $estate->photos->each(function ($photo) {
+                $photo->delete();
+            });
+            /** @var UploadedFile $photo */
+            foreach ($photos as $photo) {
+                $name = $this->getPhotoName($photo);
+                $path = $photo->storeAs('public/photos', $name);
+                $estate->photos()->create([
+                    'path' => $path,
+                ]);
+            }
+        }
         $estate->fill($request->all())->save();
 
         return redirect()->back();
@@ -151,5 +176,12 @@ class EstateController extends Controller
         $estate->delete();
 
         return redirect()->back();
+    }
+
+    private function getPhotoName(UploadedFile $file)
+    {
+        $name = $file->getClientOriginalName();
+
+        return time().'_'.$name;
     }
 }

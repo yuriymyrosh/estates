@@ -14,23 +14,20 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="{{Request::is('home') ? 'active' : ''}}">
-                <a href="/home">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="{{Request::is('users*') ? 'active' : ''}}">
-                <a href="#">
-                    <i class="fa fa-files-o"></i>
-                    <span>Користувачі</span>
-                </a>
-            </li>
             <li class="{{Request::is('estates*') ? 'active' : ''}}">
                 <a href="{{ route('estates.index') }}">
                     <i class="fa fa-table"></i>
                     <span>Квартири</span>
                 </a>
             </li>
+            @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                <li class="{{Request::is('users*') ? 'active' : ''}}">
+                    <a href="{{ route('users.index') }}">
+                        <i class="fa fa-files-o"></i>
+                        <span>Користувачі</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </section>
     <!-- /.sidebar -->

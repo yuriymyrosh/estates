@@ -42,7 +42,9 @@
                     <h1 class="box-title">Квартири</h1>
 
                     <div class="box-tools">
-                        <a href="{{ route('estates.create') }}" class="btn btn-primary">Додати</a>
+                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                            <a href="{{ route('estates.create') }}" class="btn btn-primary">Додати</a>
+                        @endif
                     </div>
                 </div>
                 <div class="box-body">
@@ -58,32 +60,39 @@
                                         <th>Адреса</th>
                                         <th>Телефон</th>
                                         <th>Опис</th>
-                                        <th width="100px"></th>
+                                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                            <th width="100px"></th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @unless($estates->count())
-                                    <tr>
-                                        <td colspan="7">
-                                            Квартир не знайдено
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="{{ \Illuminate\Support\Facades\Auth::user()->is_admin ? 7 : 6 }}">
+                                                Квартир не знайдено
+                                            </td>
+                                        </tr>
                                     @endunless
                                     @foreach($estates as $estate)
                                         <tr>
-                                            <td><a href="{{ route('estates.show', $estate->id) }}">{{ $estate->name }}</a></td>
+                                            <td>
+                                                <a href="{{ route('estates.show', $estate->id) }}">{{ $estate->name }}</a>
+                                            </td>
                                             <td>{{ $estate->roomOption->name }}</td>
                                             <td>{{ $estate->region->name }}</td>
                                             <td>{{ $estate->address }}</td>
                                             <td>{{ $estate->phone }}</td>
                                             <td>{{ $estate->description }}</td>
-                                            <td>
-                                                <a href="{{ route('estates.edit', $estate->id) }}"
-                                                   class="btn btn-primary"><i class="icon ion-edit"></i></a>
-                                                {!! Form::open([ 'route' => ['estates.destroy', $estate->id], 'method' => 'DELETE', 'class' => 'inline']) !!}
-                                                <button type="submit" class="btn btn-danger"><i class="icon ion-trash-a"></i></button>
-                                                {!! Form::close() !!}
-                                            </td>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                                <td>
+                                                    <a href="{{ route('estates.edit', $estate->id) }}"
+                                                       class="btn btn-primary"><i class="icon ion-edit"></i></a>
+                                                    {!! Form::open([ 'route' => ['estates.destroy', $estate->id], 'method' => 'DELETE', 'class' => 'inline']) !!}
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                                class="icon ion-trash-a"></i></button>
+                                                    {!! Form::close() !!}
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     </tbody>

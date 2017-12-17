@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('estates', 'EstateController');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return redirect('estates');
+    });
+    Route::resource('estates', 'EstateController');
+    Route::resource('users', 'UserController');
+});

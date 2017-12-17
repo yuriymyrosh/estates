@@ -86,17 +86,38 @@
                         'data-mask'
                         ]) !!}
                     </div>
-                    @if($errors->has(''))
+                    @if($errors->has('phone'))
                         @foreach($errors->get('phone') as $phoneErr)
                         <span class="help-block">{{ $phoneErr }}</span>
                         @endforeach
                     @endif
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('photos') ? 'has-error' : ''}}">
+                {!! Form::label('photos', 'Фото', ['class' => 'col-sm-2 control-label']) !!}
+
+                <div class="col-sm-10">
+                    {!! Form::file('photos[]', [
+                    'id' => 'photos',
+                    'multiple' => true,
+                    'accept' => 'image/*',
+                    ]) !!}
+                    @if($errors->has('address'))
+                        <span class="help-block">{{$errors->first('address')}}</span>
+                    @endif
+                </div>
+                @if($estate->photos)
+                    <div class="col-sm-10">
+                        @foreach($estate->photos as $photo)
+                            <img src="{{$photo->publicPath}}" alt="" width="100px">
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            <button type="submit" class="btn btn-info pull-right">Додати</button>
+            <button type="submit" class="btn btn-info pull-right">Зберегти</button>
         </div>
         <!-- /.box-footer -->
         {!! Form::close() !!}
