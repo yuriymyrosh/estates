@@ -31,7 +31,7 @@ class EstateController extends Controller
         $rooms = ['' => 'Оберіть кількість кімнат'];
         $rooms = $rooms + RoomOption::all()->pluck('name', 'id')->toArray();
 
-        $estates = Estate::query()->with('region', 'roomOption');
+        $estates = Estate::query()->with('region', 'roomOption')->orderBy('id', 'DESC');
         if ($region = $request->get('region')) {
             $estates = $estates->where('region_id', $region);
         }
