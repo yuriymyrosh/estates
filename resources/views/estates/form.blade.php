@@ -11,20 +11,6 @@
         <!-- form start -->
         {!! Form::open(['route' => $route, 'method' => $method,'files' => true, 'class' => 'form-horizontal']) !!}
         <div class="box-body">
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                {!! Form::label('name', 'Назва', ['class' => 'col-sm-2 control-label']) !!}
-
-                <div class="col-sm-10">
-                    {!! Form::text('name', $estate->name, [
-                    'id' => 'name',
-                    'class' => 'form-control',
-                    'placeholder' => 'Назва'
-                    ]) !!}
-                    @if($errors->has('name'))
-                        <span class="help-block">{{$errors->first('name')}}</span>
-                    @endif
-                </div>
-            </div>
             <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
                 {!! Form::label('address', 'Адрес', ['class' => 'col-sm-2 control-label']) !!}
 
@@ -70,6 +56,20 @@
                      ]) !!}
                 </div>
             </div>
+            <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
+                {!! Form::label('price', 'Ціна', ['class' => 'col-sm-2 control-label']) !!}
+
+                <div class="col-sm-10">
+                    {!! Form::number('price', $estate->price, [
+                    'id' => 'price',
+                    'class' => 'form-control',
+                    'placeholder' => '0'
+                    ]) !!}
+                    @if($errors->has('price'))
+                        <span class="help-block">{{$errors->first('price')}}</span>
+                    @endif
+                </div>
+            </div>
             <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                 {!! Form::label('phone', 'Телефон власника', ['class' => 'col-sm-2 control-label']) !!}
 
@@ -102,8 +102,9 @@
                     'multiple' => true,
                     'accept' => 'image/*',
                     ]) !!}
-                    @if($errors->has('address'))
-                        <span class="help-block">{{$errors->first('address')}}</span>
+                    <span class="help-block">Ви можете обрати декілька фото, залишіть це поле пустим якщо ви не хочете редагувати фото</span>
+                    @if($errors->has('photos'))
+                        <span class="help-block">{{$errors->first('photos')}}</span>
                     @endif
                 </div>
                 @if($estate->photos)

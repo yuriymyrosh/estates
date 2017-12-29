@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h1 class="box-title">{{ $estate->name }}</h1>
+                    <h1 class="box-title">{{ $estate->address }}</h1>
                 </div>
                 <div class="box-body">
                     <ul class="list-group list-group-unbordered">
@@ -14,6 +14,9 @@
                         </li>
                         <li class="list-group-item">
                             <b>Телефон:</b> {{ $estate->phone }}
+                        </li>
+                        <li class="list-group-item">
+                            <b>Ціна:</b> {{ $estate->price }}
                         </li>
                         <li class="list-group-item">
                             <b>Кількість кімнат:</b> {{ $estate->roomOption->name }}

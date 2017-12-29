@@ -22,6 +22,7 @@
                                     <tr>
                                         <th>Ім'я</th>
                                         <th>Емейл</th>
+                                        <th>Адміністратор</th>
                                         @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                                             <th width="100px"></th>
                                         @endif
@@ -30,7 +31,7 @@
                                     <tbody>
                                     @unless($users->count())
                                         <tr>
-                                            <td colspan="{{ \Illuminate\Support\Facades\Auth::user()->is_admin ? 3 : 2 }}">
+                                            <td colspan="{{ \Illuminate\Support\Facades\Auth::user()->is_admin ? 4 : 3 }}">
                                                 Користувачів не знайдено
                                             </td>
                                         </tr>
@@ -41,6 +42,7 @@
                                                 <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
                                             </td>
                                             <td>{{ $user->email }}</td>
+                                            <td><span class="label {{ $user->is_admin ? 'bg-green' : 'bg-red' }}">{{ $user->is_admin ? 'так' : 'ні' }}</span></td>
                                             @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                                                 <td>
                                                     <a href="{{ route('users.edit', $user->id) }}"

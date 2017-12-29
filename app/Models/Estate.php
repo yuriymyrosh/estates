@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  *
  * @property integer $id
- * @property string $name
  * @property string $address
  * @property integer $region_id
  * @property integer $room_option_id
  * @property string $description
+ * @property integer $price
  * @property string $phone
  *
  * @property RoomOption $roomOption
@@ -24,11 +24,11 @@ use Illuminate\Database\Eloquent\Model;
 class Estate extends Model
 {
     protected $fillable = [
-        'name',
         'address',
         'region_id',
         'room_option_id',
         'description',
+        'price',
         'phone',
     ];
 

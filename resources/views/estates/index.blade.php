@@ -54,11 +54,11 @@
                                 <table class="table table-hover table-bordered table-striped dataTable">
                                     <thead>
                                     <tr>
-                                        <th>Назва</th>
+                                        <th>Адреса</th>
                                         <th>Кількість кімнат</th>
                                         <th>Район</th>
-                                        <th>Адреса</th>
                                         <th>Телефон</th>
+                                        <th>Ціна</th>
                                         <th>Опис</th>
                                         @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                                             <th width="100px"></th>
@@ -76,12 +76,12 @@
                                     @foreach($estates as $estate)
                                         <tr>
                                             <td>
-                                                <a href="{{ route('estates.show', $estate->id) }}">{{ $estate->name }}</a>
+                                                <a href="{{ route('estates.show', $estate->id) }}">{{ $estate->address }}</a>
                                             </td>
                                             <td>{{ $estate->roomOption->name }}</td>
                                             <td>{{ $estate->region->name }}</td>
-                                            <td>{{ $estate->address }}</td>
                                             <td>{{ $estate->phone }}</td>
+                                            <td>{{ $estate->price }}</td>
                                             <td>{{ $estate->description }}</td>
                                             @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                                                 <td>

@@ -25,11 +25,13 @@ class EstatesFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'price' => ['required', 'integer'],
             'address' => ['required'],
             'phone' => ['required', 'regex:/\+38\(0\d\d\)\d\d\d-\d\d-\d\d/'],
             'region_id' => ['required'],
             'room_option_id' => ['required'],
+            'photos' => ['array'],
+            'photos.*' => ['image'],
         ];
     }
 }
