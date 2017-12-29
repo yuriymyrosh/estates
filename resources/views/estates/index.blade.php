@@ -88,7 +88,7 @@
                                                     <a href="{{ route('estates.edit', $estate->id) }}"
                                                        class="btn btn-primary"><i class="icon ion-edit"></i></a>
                                                     {!! Form::open([ 'route' => ['estates.destroy', $estate->id], 'method' => 'DELETE', 'class' => 'inline']) !!}
-                                                    <button type="submit" class="btn btn-danger"><i
+                                                    <button type="submit" class="btn btn-danger delete"><i
                                                                 class="icon ion-trash-a"></i></button>
                                                     {!! Form::close() !!}
                                                 </td>
@@ -107,5 +107,40 @@
             </div>
         </div>
     </div>
+    <!-- Modal delete-->
+    <div id="model-delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Ви дійсно бажаєте видалити квартиру?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Відмінити</button>
+                    <button type="button" class="btn btn-primary">Видалити</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.delete').click(function (e) {
+               e.preventDefault();
+               e.stopPropagation();
+               var form = $(this).closest('form');
+
+                $('#model-delete').modal();
+                $('#model-delete .btn-primary').click(function (e) {
+                    $(form).submit();
+                });
+            });
+        });
+    </script>
 @endsection
