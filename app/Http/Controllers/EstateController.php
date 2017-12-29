@@ -170,6 +170,7 @@ class EstateController extends Controller
      * @param  \App\Models\Estate $estate
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Estate $estate)
     {

@@ -55,4 +55,13 @@ class Estate extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function delete()
+    {
+        foreach ($this->photos as $photo) {
+            $photo->delete();
+        }
+
+        return parent::delete();
+    }
 }
