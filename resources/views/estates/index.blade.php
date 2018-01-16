@@ -51,6 +51,7 @@
                     <div class="dataTables_wrapper dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
+                                @php($colspan = \Illuminate\Support\Facades\Auth::user()->is_admin ? 7 : 6 )
                                 <table class="table table-hover table-bordered table-striped dataTable">
                                     <thead>
                                     <tr>
@@ -68,12 +69,21 @@
                                     <tbody>
                                     @unless($estates->count())
                                         <tr>
-                                            <td colspan="{{ \Illuminate\Support\Facades\Auth::user()->is_admin ? 7 : 6 }}">
+                                            <td colspan="{{ $colspan }}">
                                                 Квартир не знайдено
                                             </td>
                                         </tr>
                                     @endunless
+                                    @php($date = '')
                                     @foreach($estates as $estate)
+                                        @if($date != $estate->created_at->toDateString())
+                                            @php($date = $estate->created_at->toDateString())
+                                            <tr>
+                                                <td colspan="{{ $colspan }}" align="center" style="color: #00c0ef">
+                                                    <b>{{$date}}</b>
+                                                </td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <td>
                                                 <a href="{{ route('estates.show', $estate->id) }}">{{ $estate->address }}</a>
